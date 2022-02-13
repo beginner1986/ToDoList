@@ -20,4 +20,9 @@ public class Task {
     private Long id;
     private String description;
     private Boolean isDone;
+
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
 }
