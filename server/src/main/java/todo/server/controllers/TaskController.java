@@ -20,15 +20,32 @@ public class TaskController {
     }
 
     @GetMapping
-    public @ResponseBody List<Task> getAllTasks() {
+    public List<Task> getAllTasks() {
         return repository.findAll();
     }
 
     @GetMapping("/{id}")
-    public @ResponseBody Task getTaskById(@PathVariable Long id) {
+    public Task getTaskById(@PathVariable Long id) {
         Optional<Task> task = repository.findById(id);
         if(task.isEmpty()) return null;
 
         return task.get();
+    }
+
+    @PostMapping
+    public Task addTask(@RequestBody Task newTask) {
+        return repository.save(newTask);
+    }
+
+    @PatchMapping("/{id}")
+    public Task updateTask(@RequestBody Task updatedTask, @PathVariable Long id) {
+        Optional<Task> optionalTask = repository.findById(id);
+        if(optionalTask.isEmpty()) return null;
+
+        Task task = optionalTask.get();
+        task.setDescription(updatedTask.getDescription());
+        task.setIsDone(updatedTask.getIsDone());
+
+        return repository.save(task);
     }
 }
