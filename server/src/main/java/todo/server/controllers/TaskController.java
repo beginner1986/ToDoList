@@ -1,6 +1,8 @@
 package todo.server.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import todo.server.domain.Task;
 import todo.server.exceptions.TaskNotFoundException;
@@ -21,10 +23,11 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<Task> getAllTasks() {
-        return repository.findAll();
+    public ResponseEntity<List<Task>> getAllTasks() {
+        return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public Task getTaskById(@PathVariable Long id) {
         return repository.findById(id)
@@ -32,24 +35,27 @@ public class TaskController {
     }
 
     @PostMapping
-    public Task addTask(@RequestBody Task newTask) {
-        return repository.save(newTask);
+    public ResponseEntity<Task> addTask(@RequestBody Task newTask) {
+        return new ResponseEntity<>(repository.save(newTask), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
-    public Task updateTask(@RequestBody Task updatedTask, @PathVariable Long id) {
-        Optional<Task> optionalTask = repository.findById(id);
-        if(optionalTask.isEmpty()) return null;
+    public ResponseEntity<Task> updateTask(@RequestBody Task updatedTask, @PathVariable Long id) {
+        Task task = repository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
 
-        Task task = optionalTask.get();
         task.setDescription(updatedTask.getDescription());
         task.setIsDone(updatedTask.getIsDone());
 
-        return repository.save(task);
+        return new ResponseEntity<>(repository.save(task), HttpStatus.CREATED);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable Long id) {
+        repository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
+
         repository.deleteById(id);
     }
 }
