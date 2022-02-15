@@ -12,8 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import todo.server.ServerApplication;
 import todo.server.repository.TaskRepository;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -45,5 +44,13 @@ public class TaskControllerIntegrationTests {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.description", is("Buy something to eat")))
                 .andExpect(jsonPath("$.isDone", is(false)));
+    }
+
+    @Test
+    public void getTaskByIdThrowsTaskNotFoundExceptionTest() throws Exception {
+        mvc.perform(get("/task/999")
+                .accept(MediaType.TEXT_PLAIN))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(containsString("Could not find task 999")));
     }
 }
