@@ -3,6 +3,7 @@ package todo.server.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import todo.server.domain.Task;
+import todo.server.exceptions.TaskNotFoundException;
 import todo.server.repository.TaskRepository;
 
 import java.util.List;
@@ -26,10 +27,8 @@ public class TaskController {
 
     @GetMapping("/{id}")
     public Task getTaskById(@PathVariable Long id) {
-        Optional<Task> task = repository.findById(id);
-        if(task.isEmpty()) return null;
-
-        return task.get();
+        return repository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
     }
 
     @PostMapping
