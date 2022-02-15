@@ -48,4 +48,9 @@ public class TaskController {
 
         return repository.save(task);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteTask(@PathVariable Long id) {
+        repository.deleteById(id);
+    }
 }
