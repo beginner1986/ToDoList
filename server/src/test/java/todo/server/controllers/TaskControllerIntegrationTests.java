@@ -51,10 +51,12 @@ public class TaskControllerIntegrationTests {
 
     @Test
     public void getTaskByIdThrowsTaskNotFoundExceptionTest() throws Exception {
-        mvc.perform(get("/task/999")
+        final long id = 999;
+
+        mvc.perform(get("/task/" + id)
                     .accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string(containsString("Could not find task 999")));
+                .andExpect(content().string(containsString("Could not find task " + id)));
     }
 
     @Test
