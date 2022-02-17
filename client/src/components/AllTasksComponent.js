@@ -10,16 +10,23 @@ export default function AllTasksComponent() {
 
     const tasks = data.map(task => {
         return (
-            <li key={task.id}>{task.description} - {task.isDone.toString()}</li>
+            <tr key={task.id}><td>{task.description}</td><td>{task.isDone.toString()}</td></tr>
         );
     })
 
     return (
         <div>
-            <div>All Tasks</div>
-            <ul>
-                {tasks}
-            </ul>
+            <h1>All Tasks</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Task description</td><td>Status</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {tasks}
+                </tbody>
+            </table>
         </div>
     );
 }
