@@ -1,0 +1,9 @@
+.tasks-table {
+    width: 80%;
+    margin: auto;
+}
+
+.center-spinner {
+    display: flex;
+    height: 90vh;
+}
