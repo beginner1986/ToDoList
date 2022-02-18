@@ -21,18 +21,22 @@ export default function AllTasksComponent() {
         return (
             <tr key={task.id}>
                 <td>{task.description}</td>
-                <td>{task.isDone.toString()}</td>
+                <td className="d-flex justify-content-center">{
+                    task.isDone
+                        ? <i className="bi bi-check-square text-success"></i>
+                        : <i className="bi bi-square text-secondary fw-bold"></i>
+                }</td>
                 <td>Remove</td>
             </tr>
         );
     });
 
     return (
-        <div className="m-auto w-75">
+        <div className="m-auto w-75 fs-5">
             <h1 className="mt-3">All Tasks</h1>
-            <table className="table table-bordered table-striped mt-3">
+            <table className="table table-bordered table-hover mt-3">
                 <thead>
-                    <tr>
+                    <tr className="text-center">
                         <th>Task description</th>
                         <th>Status</th>
                         <th>Actions</th>
