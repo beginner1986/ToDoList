@@ -1,8 +1,10 @@
 import { useAxios } from 'use-axios-client';
+import {apiUrl} from "../const/const";
+import axios from "axios";
 
 export default function AllTasksComponent() {
     const { data, error, loading } = useAxios({
-        url: 'http://localhost:8080/task'
+        url: apiUrl
     });
 
     if(loading || !data) {
@@ -23,8 +25,8 @@ export default function AllTasksComponent() {
                 <td>{task.description}</td>
                 <td className="d-flex justify-content-center">{
                     task.isDone
-                        ? <i className="bi bi-check-square text-success"></i>
-                        : <i className="bi bi-square text-secondary fw-bold"></i>
+                        ? <i className="bi bi-check-square text-success" onClick={() => toggleTaskIsDone(task)}></i>
+                        : <i className="bi bi-square text-secondary fw-bold" onClick={() => toggleTaskIsDone(task)}></i>
                 }</td>
                 <td>Remove</td>
             </tr>
@@ -48,4 +50,15 @@ export default function AllTasksComponent() {
             </table>
         </div>
     );
+}
+
+function toggleTaskIsDone(task) {
+    task.isDone = !task.isDone;
+    console.log(task);
+
+    axios
+        .patch(`${apiUrl}/${task.id}`, task)
+        .catch(error => {
+            console.log(error);
+        });
 }
