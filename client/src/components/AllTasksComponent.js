@@ -22,6 +22,7 @@ export default function AllTasksComponent() {
             <tr key={task.id}>
                 <td>{task.description}</td>
                 <td>{task.isDone.toString()}</td>
+                <td>Remove</td>
             </tr>
         );
     });
@@ -29,11 +30,12 @@ export default function AllTasksComponent() {
     return (
         <div className="m-auto w-75">
             <h1 className="mt-3">All Tasks</h1>
-            <table className="table table-striped mt-3">
+            <table className="table table-bordered table-striped mt-3">
                 <thead>
                     <tr>
                         <th>Task description</th>
                         <th>Status</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
