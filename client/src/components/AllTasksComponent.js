@@ -1,5 +1,4 @@
 import { useAxios } from 'use-axios-client';
-import './AllTasksComponent.css';
 
 export default function AllTasksComponent() {
     const { data, error, loading } = useAxios({
@@ -8,7 +7,7 @@ export default function AllTasksComponent() {
 
     if(loading || !data) {
         return (
-            <div className="align-items-center center-spinner">
+            <div className="align-items-center d-flex" style={{height: 90+'vh'}}>
                 <div className="spinner-border m-5 d-flex justify-content-center">
                     <span className="visually-hidden">Loading...</span>
                 </div>
@@ -28,9 +27,9 @@ export default function AllTasksComponent() {
     });
 
     return (
-        <div className="tasks-table">
-            <h1>All Tasks</h1>
-            <table className="table table-striped">
+        <div className="m-auto w-75">
+            <h1 className="mt-3">All Tasks</h1>
+            <table className="table table-striped mt-3">
                 <thead>
                     <tr>
                         <th>Task description</th>
