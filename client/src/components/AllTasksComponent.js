@@ -1,11 +1,15 @@
 import { useAxios } from 'use-axios-client';
 import {apiUrl} from "../const/const";
 import axios from "axios";
+import {useCallback, useState} from "react";
 
 export default function AllTasksComponent() {
     const { data, error, loading } = useAxios({
         url: apiUrl
     });
+
+    const [, updateState] = useState();
+    const forceUpdate = useCallback(() => updateState({}), []);
 
     if(loading || !data) {
         return (
@@ -19,14 +23,20 @@ export default function AllTasksComponent() {
 
     if(error) return "Error!";
 
-    const tasks = data.map(task => {
+    const tableRows = data.map(task => {
         return (
             <tr key={task.id}>
                 <td>{task.description}</td>
                 <td className="d-flex justify-content-center">{
                     task.isDone
-                        ? <i className="bi bi-check-square text-success" onClick={() => toggleTaskIsDone(task)}></i>
-                        : <i className="bi bi-square text-secondary fw-bold" onClick={() => toggleTaskIsDone(task)}></i>
+                        ? <i className="bi bi-check-square text-success" onClick={() => {
+                            toggleTaskIsDone(task);
+                            forceUpdate();
+                        }}></i>
+                        : <i className="bi bi-square text-secondary fw-bold" onClick={() => {
+                            toggleTaskIsDone(task);
+                            forceUpdate();
+                        }}></i>
                 }</td>
                 <td>Remove</td>
             </tr>
@@ -45,7 +55,7 @@ export default function AllTasksComponent() {
                     </tr>
                 </thead>
                 <tbody>
-                    {tasks}
+                    {tableRows}
                 </tbody>
             </table>
         </div>
@@ -54,7 +64,6 @@ export default function AllTasksComponent() {
 
 function toggleTaskIsDone(task) {
     task.isDone = !task.isDone;
-    console.log(task);
 
     axios
         .patch(`${apiUrl}/${task.id}`, task)
