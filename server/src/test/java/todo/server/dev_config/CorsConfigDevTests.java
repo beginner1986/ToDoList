@@ -1,4 +1,4 @@
-package todo.server.config;
+package todo.server.dev_config;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

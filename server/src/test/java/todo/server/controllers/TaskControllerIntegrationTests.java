@@ -69,9 +69,9 @@ public class TaskControllerIntegrationTests {
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(6));
+                .andExpect(jsonPath("$.id").value(7));
 
-        repository.deleteById(6L);
+        repository.deleteById(7L);
     }
 
     @Test

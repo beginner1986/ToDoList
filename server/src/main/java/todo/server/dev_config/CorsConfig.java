@@ -1,4 +1,4 @@
-package todo.server.config;
+package todo.server.dev_config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;

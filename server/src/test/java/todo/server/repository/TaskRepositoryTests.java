@@ -1,20 +1,35 @@
 package todo.server.repository;
 
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
+import todo.server.ServerApplication;
+import todo.server.dev_config.H2DatabaseInit;
 import todo.server.domain.Task;
 
 import java.util.List;
 
 @ActiveProfiles("dev")
-@DataJpaTest
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ServerApplication.class)
+@Transactional
 public class TaskRepositoryTests {
 
     @Autowired
     TaskRepository repository;
+    @Autowired
+    H2DatabaseInit dbConfig;
+
+    @BeforeEach
+    public void setUpTests() {
+        dbConfig.insertTestDataIntoDatabase();
+    }
 
     @Test
     public void getAllTasksTest() {
