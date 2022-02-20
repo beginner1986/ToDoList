@@ -3,11 +3,12 @@ Web app with Java Spring, React JS and MySQL database
 
 ## Database
 ### Development 
-For development purposes [H2](https://www.h2database.com/html/main.html) database was used.
-Database is populated with testing data on Server Applicarion start, if "dev" profile is active.
+For development purposes [H2 database](https://www.h2database.com/html/main.html) was used.
+Database is created in ``./data`` folder and populated with testing data on Server Applicarion start, 
+if ``dev`` profile is active.
 
 ### Production
-
+``// TODO``
 
 ## Server
 Server app made with Java 11 and [Spring Boot 2.6.3](https://spring.io/).

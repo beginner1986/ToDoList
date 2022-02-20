@@ -2,6 +2,7 @@ import { useAxios } from 'use-axios-client';
 import {apiUrl} from "../const/const";
 import axios from "axios";
 import {useCallback, useState} from "react";
+import TaskService from "../service/TaskService";
 
 export default function AllTasksComponent() {
     const { data, error, loading } = useAxios({
@@ -64,10 +65,5 @@ export default function AllTasksComponent() {
 
 function toggleTaskIsDone(task) {
     task.isDone = !task.isDone;
-
-    axios
-        .patch(`${apiUrl}/${task.id}`, task)
-        .catch(error => {
-            console.log(error);
-        });
+    TaskService.updateTask(task);
 }
