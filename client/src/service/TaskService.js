@@ -3,6 +3,10 @@ import {apiUrl} from "../const/const";
 
 class TaskService {
 
+    getAllTasks() {
+        return axios.get(apiUrl);
+    }
+
     updateTask(task) {
         axios
             .patch(`${apiUrl}/${task.id}`, task)

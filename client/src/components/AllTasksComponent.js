@@ -1,18 +1,37 @@
-import { useAxios } from 'use-axios-client';
-import {apiUrl} from "../const/const";
-import axios from "axios";
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import TaskService from "../service/TaskService";
 
 export default function AllTasksComponent() {
-    const { data, error, loading } = useAxios({
-        url: apiUrl
-    });
+    const [tasks, setTasks] = useState([]);
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(true);
 
-    const [, updateState] = useState();
-    const forceUpdate = useCallback(() => updateState({}), []);
+    useEffect(() => {
+        getTasks();
+    }, []);
 
-    if(loading || !data) {
+    const getTasks = () => {
+        TaskService.getAllTasks()
+            .then((response) => {
+                setTasks(response.data);
+                setLoading(false);
+            })
+            .catch(error => {
+                setError(error);
+                setLoading(false);
+            });
+    };
+
+    const toggleTaskIsDone = (taskId) => {
+        let newTasks = [...tasks];
+        let updatedTask = tasks[taskId-1];
+
+        updatedTask.isDone = !updatedTask.isDone;
+        TaskService.updateTask(updatedTask);
+        setTasks(newTasks);
+    }
+
+    if(loading) {
         return (
             <div className="align-items-center d-flex" style={{height: 90+'vh'}}>
                 <div className="spinner-border m-5 d-flex justify-content-center">
@@ -24,19 +43,17 @@ export default function AllTasksComponent() {
 
     if(error) return "Error!";
 
-    const tableRows = data.map(task => {
+    const tableRows = tasks.map(task => {
         return (
             <tr key={task.id}>
                 <td>{task.description}</td>
                 <td className="d-flex justify-content-center">{
                     task.isDone
                         ? <i className="bi bi-check-square text-success" onClick={() => {
-                            toggleTaskIsDone(task);
-                            forceUpdate();
+                            toggleTaskIsDone(task.id);
                         }}></i>
                         : <i className="bi bi-square text-secondary fw-bold" onClick={() => {
-                            toggleTaskIsDone(task);
-                            forceUpdate();
+                            toggleTaskIsDone(task.id);
                         }}></i>
                 }</td>
                 <td>Remove</td>
@@ -61,9 +78,4 @@ export default function AllTasksComponent() {
             </table>
         </div>
     );
-}
-
-function toggleTaskIsDone(task) {
-    task.isDone = !task.isDone;
-    TaskService.updateTask(task);
 }
