@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import TaskService from "../service/TaskService";
+import CenteredSpinner from "./CenteredSpinner";
 
 export default function TasksComponent() {
     const [tasks, setTasks] = useState([]);
@@ -32,13 +33,7 @@ export default function TasksComponent() {
     }
 
     if(loading) {
-        return (
-            <div className="align-items-center d-flex" style={{height: 90+'vh'}}>
-                <div className="spinner-border m-5 d-flex justify-content-center">
-                    <span className="visually-hidden">Loading...</span>
-                </div>
-            </div>
-        );
+        return <CenteredSpinner/>;
     }
 
     if(error) return "Error!";
