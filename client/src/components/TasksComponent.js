@@ -1,7 +1,7 @@
-import {useCallback, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import TaskService from "../service/TaskService";
 
-export default function AllTasksComponent() {
+export default function TasksComponent() {
     const [tasks, setTasks] = useState([]);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
