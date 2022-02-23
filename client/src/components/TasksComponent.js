@@ -57,7 +57,7 @@ export default function TasksComponent() {
     });
 
     return (
-        <div className="m-auto w-75 fs-5">
+        <main className="m-auto w-75 fs-5">
             <h1 className="mt-3">All Tasks</h1>
             <table className="table table-bordered table-hover mt-3">
                 <thead>
@@ -71,6 +71,6 @@ export default function TasksComponent() {
                     {tableRows}
                 </tbody>
             </table>
-        </div>
+        </main>
     );
 }
