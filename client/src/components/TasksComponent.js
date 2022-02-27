@@ -9,7 +9,7 @@ export default function TasksComponent() {
 
     useEffect(() => {
         getTasks();
-    }, []);
+    }, [tasks]);
 
     const getTasks = () => {
         TaskService.getAllTasks()
@@ -32,6 +32,11 @@ export default function TasksComponent() {
         setTasks(newTasks);
     }
 
+    const deleteTask = (taskId) => {
+        TaskService.deleteTask(taskId);
+        getTasks();
+    }
+
     if(loading) {
         return <CenteredSpinner/>;
     }
@@ -51,7 +56,11 @@ export default function TasksComponent() {
                             toggleTaskIsDone(task.id);
                         }}></i>
                 }</td>
-                <td>Remove</td>
+                <td>
+                    <button type="button" className="btn btn-danger" onClick={() => deleteTask(task.id)}>
+                        Delete
+                    </button>
+                </td>
             </tr>
         );
     });

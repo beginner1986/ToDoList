@@ -8,8 +8,14 @@ class TaskService {
     }
 
     updateTask(task) {
-        axios
-            .patch(`${apiUrl}/${task.id}`, task)
+        axios.patch(`${apiUrl}/${task.id}`, task)
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    deleteTask(taskId) {
+        axios.delete(`${apiUrl}/${taskId}`)
             .catch(error => {
                 console.log(error);
             });
