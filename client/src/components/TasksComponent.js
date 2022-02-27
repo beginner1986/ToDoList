@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import TaskService from "../service/TaskService";
 import CenteredSpinner from "./CenteredSpinner";
+import TasksViewComponent from "./TasksViewComponent";
 
 export default function TasksComponent() {
     const [tasks, setTasks] = useState([]);
@@ -41,47 +42,9 @@ export default function TasksComponent() {
 
     if(error) return "Error!";
 
-    const tableRows = tasks.map(task => {
-        return (
-            <tr key={task.id}>
-                <td className={task.isDone ? "text-decoration-line-through text-secondary" : ""}>
-                    {task.description}
-                </td>
-                <td className="d-flex justify-content-center">
-                    {
-                        task.isDone
-                            ? <i className="bi bi-check-square text-success" onClick={() => {
-                                toggleTaskIsDone(task.id);
-                            }}></i>
-                            : <i className="bi bi-square text-secondary fw-bold" onClick={() => {
-                                toggleTaskIsDone(task.id);
-                            }}></i>
-                    }
-                </td>
-                <td>
-                    <button type="button" className="btn btn-danger" onClick={() => deleteTask(task.id)}>
-                        Delete
-                    </button>
-                </td>
-            </tr>
-        );
-    });
-
-    return (
-        <main className="m-auto w-75 fs-5">
-            <h1 className="mt-3">All Tasks</h1>
-            <table className="table table-bordered table-hover mt-3">
-                <thead>
-                    <tr className="text-center">
-                        <th>Task description</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {tableRows}
-                </tbody>
-            </table>
-        </main>
-    );
+    return <TasksViewComponent
+        tasks={tasks}
+        toggleTaskIsDone={toggleTaskIsDone}
+        deleteTask={deleteTask}
+    />
 }
