@@ -24,17 +24,15 @@ export default function TasksComponent() {
     };
 
     const toggleTaskIsDone = (taskId) => {
-        let newTasks = [...tasks];
-        let updatedTask = tasks[taskId-1];
-
+        let updatedTask = tasks.find((task) => {
+            return task.id === taskId;
+        });
         updatedTask.isDone = !updatedTask.isDone;
         TaskService.updateTask(updatedTask);
-        setTasks(newTasks);
     }
 
     const deleteTask = (taskId) => {
         TaskService.deleteTask(taskId);
-        getTasks();
     }
 
     if(loading) {
