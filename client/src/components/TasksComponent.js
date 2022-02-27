@@ -46,16 +46,20 @@ export default function TasksComponent() {
     const tableRows = tasks.map(task => {
         return (
             <tr key={task.id}>
-                <td>{task.description}</td>
-                <td className="d-flex justify-content-center">{
-                    task.isDone
-                        ? <i className="bi bi-check-square text-success" onClick={() => {
-                            toggleTaskIsDone(task.id);
-                        }}></i>
-                        : <i className="bi bi-square text-secondary fw-bold" onClick={() => {
-                            toggleTaskIsDone(task.id);
-                        }}></i>
-                }</td>
+                <td className={task.isDone ? "text-decoration-line-through text-secondary" : ""}>
+                    {task.description}
+                </td>
+                <td className="d-flex justify-content-center">
+                    {
+                        task.isDone
+                            ? <i className="bi bi-check-square text-success" onClick={() => {
+                                toggleTaskIsDone(task.id);
+                            }}></i>
+                            : <i className="bi bi-square text-secondary fw-bold" onClick={() => {
+                                toggleTaskIsDone(task.id);
+                            }}></i>
+                    }
+                </td>
                 <td>
                     <button type="button" className="btn btn-danger" onClick={() => deleteTask(task.id)}>
                         Delete
