@@ -16,7 +16,7 @@ export default function TasksViewComponent(props) {
                             }}></i>
                     }
                 </td>
-                <td>
+                <td className="text-center">
                     <button type="button" className="btn btn-danger" onClick={() => props.deleteTask(task.id)}>
                         Delete
                     </button>
