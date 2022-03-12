@@ -1,11 +1,24 @@
+import {useState} from "react";
+import InputTaskDescriptionTd from "./InputTaskDescriptionTd";
+
 export default function TasksViewComponent(props) {
+    const [editable, setEditable] = useState(0);
+
+    const editCell = (task) => {
+        setEditable(task.id);
+    };
+
     const tableRows = props.tasks.map(task => {
         return (
             <tr key={task.id}>
-                <td className={task.isDone ? "text-decoration-line-through text-secondary" : ""}>
-                    {task.description}
+                <td onDoubleClick={() => editCell(task)}>
+                    {
+                        (editable === task.id)
+                            ? (<InputTaskDescriptionTd value={task.description}/>)
+                            : (<p className={task.isDone ? "text-decoration-line-through text-secondary" : ""}>{task.description}</p>)
+                    }
                 </td>
-                <td className="d-flex justify-content-center">
+                <td className="text-center">
                     {
                         task.isDone
                             ? <i className="bi bi-check-square text-success" onClick={() => {
