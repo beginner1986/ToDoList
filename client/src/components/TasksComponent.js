@@ -32,7 +32,7 @@ export default function TasksComponent() {
         TaskService.updateTask(updatedTask);
     }
 
-    const editTaskDescription = (taskId, newDescription) => {
+    const updateTaskDescription = (taskId, newDescription) => {
         let updatedTask = tasks.find((task) => {
             return task.id === taskId;
         });
@@ -53,7 +53,7 @@ export default function TasksComponent() {
     return <TasksViewComponent
         tasks={tasks}
         toggleTaskIsDone={toggleTaskIsDone}
-        editTaskDescription={editTaskDescription}
+        updateTaskDescription={updateTaskDescription}
         deleteTask={deleteTask}
     />
 }

@@ -14,7 +14,10 @@ export default function TasksViewComponent(props) {
                 <td onDoubleClick={() => editCell(task)}>
                     {
                         (editable === task.id)
-                            ? (<InputTaskDescriptionTd value={task.description}/>)
+                            ? (<InputTaskDescriptionTd
+                                task={task}
+                                updateTaskDescription={props.updateTaskDescription}
+                            />)
                             : (<p className={task.isDone ? "text-decoration-line-through text-secondary" : ""}>{task.description}</p>)
                     }
                 </td>
