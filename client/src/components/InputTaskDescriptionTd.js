@@ -1,7 +1,15 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export default function InputTaskDescriptionTd(props) {
     const [text, setText] = useState(props.task.description);
+
+    useEffect(() => {
+        document
+            .querySelectorAll(".edit-button")
+            .forEach((btn) => {
+                btn.setAttribute("disabled", "");
+            });
+    }, []);
 
     const update = (event) => {
         setText(event.target.value);

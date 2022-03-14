@@ -11,6 +11,11 @@ export default function TasksViewComponent(props) {
     const editTaskDescription = (taskId, text) => {
         props.updateTaskDescription(taskId, text);
         setEditable(-1);
+        document
+            .querySelectorAll(".edit-button")
+            .forEach((btn) => {
+                btn.removeAttribute("disabled");
+            });
     };
 
     const tableRows = props.tasks.map(task => {
@@ -38,7 +43,7 @@ export default function TasksViewComponent(props) {
                     }
                 </td>
                 <td className="d-flex justify-content-around">
-                    <button type="button" className="btn btn-primary" onClick={() => editCell(task.id)}>
+                    <button type="button" className="btn btn-primary edit-button" onClick={() => editCell(task.id)}>
                         Edit
                     </button>
                     <button type="button" className="btn btn-danger" onClick={() => props.deleteTask(task.id)}>
