@@ -4,8 +4,8 @@ import InputTaskDescriptionTd from "./InputTaskDescriptionTd";
 export default function TasksViewComponent(props) {
     const [editable, setEditable] = useState(0);
 
-    const editCell = (task) => {
-        setEditable(task.id);
+    const editCell = (taskId) => {
+        setEditable(taskId);
     };
 
     const editTaskDescription = (taskId, text) => {
@@ -16,7 +16,7 @@ export default function TasksViewComponent(props) {
     const tableRows = props.tasks.map(task => {
         return (
             <tr key={task.id}>
-                <td onDoubleClick={() => editCell(task)}>
+                <td onDoubleClick={() => editCell(task.id)}>
                     {
                         (editable === task.id)
                             ? (<InputTaskDescriptionTd
@@ -37,7 +37,10 @@ export default function TasksViewComponent(props) {
                             }}></i>
                     }
                 </td>
-                <td className="text-center">
+                <td className="d-flex justify-content-around">
+                    <button type="button" className="btn btn-primary" onClick={() => editCell(task.id)}>
+                        Edit
+                    </button>
                     <button type="button" className="btn btn-danger" onClick={() => props.deleteTask(task.id)}>
                         Delete
                     </button>
