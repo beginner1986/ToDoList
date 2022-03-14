@@ -3,7 +3,7 @@ import {useState} from "react";
 export default function InputTaskDescriptionTd(props) {
     const [text, setText] = useState(props.task.description);
 
-    function update(event) {
+    const update = (event) => {
         setText(event.target.value);
     }
 
@@ -19,7 +19,7 @@ export default function InputTaskDescriptionTd(props) {
                 type="submit"
                 value="Save"
                 className="btn btn-success"
-                onClick={() => props.updateTaskDescription(props.task.id, text)}
+                onClick={() => props.editTaskDescription(props.task.id, text)}
             />
         </span>
     );

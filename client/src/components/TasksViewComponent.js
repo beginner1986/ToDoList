@@ -8,6 +8,11 @@ export default function TasksViewComponent(props) {
         setEditable(task.id);
     };
 
+    const editTaskDescription = (taskId, text) => {
+        props.updateTaskDescription(taskId, text);
+        setEditable(-1);
+    };
+
     const tableRows = props.tasks.map(task => {
         return (
             <tr key={task.id}>
@@ -16,7 +21,7 @@ export default function TasksViewComponent(props) {
                         (editable === task.id)
                             ? (<InputTaskDescriptionTd
                                 task={task}
-                                updateTaskDescription={props.updateTaskDescription}
+                                editTaskDescription={editTaskDescription}
                             />)
                             : (<p className={task.isDone ? "text-decoration-line-through text-secondary" : ""}>{task.description}</p>)
                     }
