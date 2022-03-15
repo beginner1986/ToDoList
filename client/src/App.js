@@ -1,5 +1,5 @@
 import './App.css';
-import TasksComponent from "./components/TasksComponent";
+import TasksComponent from "./components/tasks/TasksComponent";
 import FooterComponent from "./components/FooterComponent";
 
 function App() {

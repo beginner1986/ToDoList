@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
-import TaskService from "../service/TaskService";
-import CenteredSpinner from "./CenteredSpinner";
+import TaskService from "../../service/TaskService";
+import CenteredSpinner from "../CenteredSpinner";
 import TasksViewComponent from "./TasksViewComponent";
 
 export default function TasksComponent() {
